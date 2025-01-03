@@ -1,7 +1,16 @@
 <div class="container">
   <h1>Google Maps</h1>
-  <div class="form-group">
-    <div class="map-container">
+  <div class="map-container">
 
-    </div>
   </div>
+
+  <div class="locations-list">
+    <h2>Locations</h2>
+    @for (location of locations(); track location) {
+    <div class="location">
+      <h3> {{ location.name }} </h3>
+      <p> {{ location.description }} </p>
+    </div>
+    }
+  </div>
+</div>

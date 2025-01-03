@@ -10,3 +10,21 @@
     border: 1px solid black;
     margin-top: 20px;
 }
+
+.locations-list {
+    width: 500px;
+    margin-top: 40px;
+}
+
+.location {
+    border: 1px solid black;
+    text-align: left;
+    padding-left: 20px;
+    background-color: white;
+    transition: 0.5s ease;
+}
+
+.location:hover {
+    background-color: #d5f6f6;
+    cursor: pointer;
+}
