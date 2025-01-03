@@ -4,12 +4,12 @@ import { Location } from '../models/location.model';
 
 @Injectable({ providedIn: 'root' })
 export class LocationsService {
-    private http = inject(HttpClient);
+    private httpClient = inject(HttpClient);
     private url = 'https://api.nicobytes.store';
 
     getAllLocations(center: { lat: number, lng: number }) {
         const url = `${this.url}/api/v1/locations`;
-        return this.http.get<Location[]>(url, {
+        return this.httpClient.get<Location[]>(url, {
             params: {
                 origin: `${center.lat},${center.lng}`,
                 size: 5

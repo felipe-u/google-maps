@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { Location } from './models/location.model';
+import { Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+import { LocationsService } from './services/locations.service';
 
 @Component({
   selector: 'app-root',
@@ -9,21 +11,12 @@ import { Location } from './models/location.model';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  locations = signal<Location[]>([
-    {
-      id: 1,
-      name: 'Location 1',
-      description: 'Description 1',
-      latitude: 0,
-      longitude: 0
-    },
-    {
-      id: 2,
-      name: 'Location 2',
-      description: 'Description 2',
-      latitude: 0,
-      longitude: 0
-    }
-  ]);
+  private locationsService = inject(LocationsService);
+
+  locations$ = this.locationsService.getAllLocations({ lat: 10.9845951, lng: -74.8179751 });
+  $locations = toSignal(this.locations$, {
+    initialValue: [],
+  });
+
 
 }

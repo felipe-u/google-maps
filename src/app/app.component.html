@@ -6,7 +6,7 @@
 
   <div class="locations-list">
     <h2>Locations</h2>
-    @for (location of locations(); track location) {
+    @for (location of $locations(); track location) {
     <div class="location">
       <h3> {{ location.name }} </h3>
       <p> {{ location.description }} </p>
