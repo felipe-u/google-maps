@@ -1,7 +1,11 @@
 <div class="container">
   <h1>Google Maps</h1>
   <div class="map-container">
-
+    <google-map 
+      height="100%" 
+      width="100%" 
+      [zoom]="12"
+      [center]="center()" />
   </div>
 
   <div class="locations-list">
