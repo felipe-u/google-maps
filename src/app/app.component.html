@@ -2,10 +2,15 @@
   <h1>Google Maps</h1>
   <div class="map-container">
     <google-map 
+      mapId="72664a8a10772701"
       height="100%" 
       width="100%" 
-      [zoom]="12"
-      [center]="center()" />
+      [zoom]="zoom()"
+      [center]="center()">
+      @for (location of $locations(); track location) {
+        <map-advanced-marker [position]="{lat: location.latitude, lng: location.longitude}"/>
+      }
+  </google-map>
   </div>
 
   <div class="locations-list">
