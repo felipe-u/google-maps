@@ -28,7 +28,13 @@ export class AppComponent {
 
   openInfoWindow(location: Location, marker: MapAdvancedMarker) {
     console.log("Marker clicked", location);
-    this.infoWindowRef().open(marker);
+
+    const content = `
+      <h3>${location.name}</<h3>
+      <p>${location.description}</p>
+    `;
+
+    this.infoWindowRef().open(marker, false, content);
   }
 
 }
