@@ -8,8 +8,12 @@
       [zoom]="zoom()"
       [center]="center()">
       @for (location of $locations(); track location) {
-        <map-advanced-marker [position]="{lat: location.latitude, lng: location.longitude}"/>
+        <map-advanced-marker 
+        #marker="mapAdvancedMarker"
+        (mapClick)="openInfoWindow(location, marker)"
+        [position]="{lat: location.latitude, lng: location.longitude}" />
       }
+      <map-info-window>Info Window content</map-info-window>
   </google-map>
   </div>
 

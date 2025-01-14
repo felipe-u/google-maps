@@ -1,18 +1,20 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, viewChild, ViewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
+import { GoogleMap, MapAdvancedMarker, MapInfoWindow } from '@angular/google-maps';
 
 import { LocationsService } from './services/locations.service';
+import { Location } from './models/location.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [GoogleMap, MapAdvancedMarker],
+  imports: [GoogleMap, MapAdvancedMarker, MapInfoWindow],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   private locationsService = inject(LocationsService);
+  infoWindowRef = viewChild.required(MapInfoWindow);
 
   center = signal<google.maps.LatLngLiteral>({ lat: 10.9845951, lng: -74.8179751 });
   zoom = signal(12);
@@ -24,5 +26,9 @@ export class AppComponent {
     initialValue: [],
   });
 
+  openInfoWindow(location: Location, marker: MapAdvancedMarker) {
+    console.log("Marker clicked", location);
+    this.infoWindowRef().open(marker);
+  }
 
 }
