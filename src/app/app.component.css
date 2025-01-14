@@ -17,6 +17,8 @@
 }
 
 .location {
+    display: flex;
+    justify-content: space-between;
     border: 1px solid black;
     text-align: left;
     padding-left: 20px;
@@ -26,5 +28,29 @@
 
 .location:hover {
     background-color: #d5f6f6;
+    cursor: pointer;
+}
+
+.edit-btn {
+    color: black;
+}
+
+.btn-container {
+    margin-top: 25px;
+}
+
+.btn-container button {
+    background-color: blue;
+    width: 100%;
+    font-size: 1.5em;
+    transition: 0.3s ease;
+    color: white;
+}
+
+.btn-container button:disabled {
+    background-color: rgb(121, 121, 255);
+}
+
+.btn-container button:enabled {
     cursor: pointer;
 }

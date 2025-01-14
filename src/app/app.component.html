@@ -1,29 +1,45 @@
 <div class="container">
   <h1>Google Maps</h1>
+  @if (!editMode) {
+
   <div class="map-container">
-    <google-map 
-      mapId="72664a8a10772701"
-      height="100%" 
-      width="100%" 
-      [zoom]="zoom()"
-      [center]="center()">
+    <google-map mapId="72664a8a10772701" height="100%" width="100%" [zoom]="zoom()" [center]="center()">
       @for (location of $locations(); track location) {
-        <map-advanced-marker 
-        #marker="mapAdvancedMarker"
+      <map-advanced-marker 
+        #marker="mapAdvancedMarker" 
         (mapClick)="openInfoWindow(location, marker)"
         [position]="{lat: location.latitude, lng: location.longitude}" />
       }
       <map-info-window />
-  </google-map>
+    </google-map>
   </div>
-
   <div class="locations-list">
     <h2>Locations</h2>
     @for (location of $locations(); track location) {
     <div class="location" (click)="selectLocation(location, $index)">
-      <h3> {{ location.name }} </h3>
-      <p> {{ location.description }} </p>
+      <div class="content-container">
+        <h3> {{ location.name }} </h3>
+        <p> {{ location.description }} </p>
+      </div>
+      <div class="edit-container">
+        <button class="edit-btn" (click)="editLocation(location, $index)">✏️</button>
+      </div>
     </div>
     }
   </div>
+  } @else {
+    <div class="map-container">
+      <google-map mapId="72664a8a10772701" height="100%" width="100%" [zoom]="zoom()" [center]="center()">
+        <map-advanced-marker 
+          [position]="{lat: tmpLocation().latitude, lng: tmpLocation().longitude}"
+          [options]="advancedMarkerOptions"
+          (mapDragstart)="enableBtn()"
+          (mapDragend)="updateLocation($event)"/>
+      </google-map>
+    </div>
+
+    <div class="btn-container">
+      <button [disabled]="disableConfirmBtn" (click)="confirmNewLocation()">Confirm</button>
+    </div>
+  }
 </div>

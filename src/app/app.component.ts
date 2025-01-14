@@ -16,11 +16,14 @@ export class AppComponent {
   private locationsService = inject(LocationsService);
   infoWindowRef = viewChild.required(MapInfoWindow);
   markersRef = viewChildren(MapAdvancedMarker);
+  tmpLocation = signal<Location | undefined>(undefined);
+  tmpPosition: number;
+  editMode = false;
+  disableConfirmBtn = true;
+  advancedMarkerOptions: google.maps.marker.AdvancedMarkerElementOptions = { gmpDraggable: true };
 
   center = signal<google.maps.LatLngLiteral>({ lat: 10.9845951, lng: -74.8179751 });
   zoom = signal(12);
-  // advancedMarkerOptions = signal<google.maps.marker.AdvancedMarkerElementOptions>({ gmpDraggable: false })
-  // advancedMarkerPositions = signal<google.maps.LatLngLiteral[]>([]);
 
   locations$ = this.locationsService.getAllLocations(this.center());
   $locations = toSignal(this.locations$, {
@@ -42,7 +45,25 @@ export class AppComponent {
     const markers = this.markersRef();
     const markerRef = markers[position];
     this.openInfoWindow(location, markerRef)
-
   }
 
+  editLocation(location: Location, position: number) {
+    this.editMode = true;
+    this.center.set({ lat: location.latitude, lng: location.longitude });
+    this.tmpLocation.set(location);
+    this.tmpPosition = position;
+  }
+
+  updateLocation(event: google.maps.MapMouseEvent) {
+    console.log(event.latLng.toJSON());
+    this.$locations().push(this.tmpLocation());
+  }
+
+  enableBtn() {
+    this.disableConfirmBtn = false;
+  }
+
+  confirmNewLocation() {
+    this.editMode = false;
+  }
 }
