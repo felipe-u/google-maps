@@ -20,7 +20,7 @@
   <div class="locations-list">
     <h2>Locations</h2>
     @for (location of $locations(); track location) {
-    <div class="location">
+    <div class="location" (click)="selectLocation(location, $index)">
       <h3> {{ location.name }} </h3>
       <p> {{ location.description }} </p>
     </div>
